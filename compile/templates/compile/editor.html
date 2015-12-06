@@ -1,0 +1,79 @@
+<html>
+<head>
+    <title>Code,Compile and Run</title>
+    <link rel="stylesheet" type="text/css" href="/static/compile/css/editor.css">
+    <script src="/static/compile/js/jquery-2.1.4.js" type="text/javascript"></script>  
+    <script src="/static/compile/js/bootstrap.js" type="text/javascript"></script>  
+    <script src="/static/compile/js/ace.js" type="text/javascript"></script>
+    <script src="/static/compile/js/mode-python.js" type="text/javascript"></script>
+    <script src="/static/compile/js/mode-c_cpp.js" type="text/javascript"></script>
+    <script>
+        function loadeditor(language)
+        {
+            if(language=="python")
+                $('#editor').html("#Write your code here\n");
+            else
+                $('#editor').html("//Write your code here\n");
+            var editor = ace.edit("editor");
+            var mode="ace/mode/"+language;
+            editor.getSession().setMode(mode);
+            $('#editor').focus();   
+        }
+
+        function doCompile()
+        {
+            var editor = ace.edit("editor");
+            code = editor.getSession().getValue();
+            //Make an ajax call with this parameter
+            token = document.getElementsByName('csrfmiddlewaretoken')[0].value;  
+            $.ajax({
+                type : 'POST',
+                url : '/compile/compile/',
+                data : {'csrfmiddlewaretoken':token,'code':code},
+                success : function(result)
+                    {
+                    if(result=="")
+                        $('#status').html("Successful Compilation");   
+                    else
+                        $('#output').html(result);
+                    },
+                error : function(result)
+                    {
+                    $('#status').html("Error compiling the code")
+                    }
+                });
+        }
+
+    </script>
+</head>
+
+<body onload="loadeditor('c_cpp')">
+{% csrf_token %}
+    <div id="editor"></div>
+
+    <div id="operations">
+        <select id="language">
+            <option value="c_cpp">C</option>
+            <option value="c_cpp">C++</option>
+            <option value="python">Python</option>
+        </select>
+        <button id="compile" onclick="doCompile()">Compile</button>
+        <button id="run" onclick="run()">Run</button>
+        <label id="status">
+            {% if result %}
+                {% if result == "" %}
+                    Compilation Successful
+                {% else %}
+                    Compilation Error
+                {% endif %}
+            {% endif %}
+        </label>
+    </div>
+
+    <div id="input_output">
+        <textarea id="input" placeholder="Input"></textarea>
+        <textarea id="output" placeholder="Output">{{ result }}</textarea>
+    </div>
+
+</body>
+</html>

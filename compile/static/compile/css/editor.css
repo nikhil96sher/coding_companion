@@ -1,0 +1,29 @@
+#editor
+{ 
+    position: absolute;
+    top: 2%;
+    left: 2%;
+    width: 58%;
+    height: 40%;
+}
+#operations
+{
+    position: absolute;
+    top:45%;
+    left:2%;
+}
+
+#input_output
+{
+    position: absolute;
+    top:50%;
+    left:2%;
+    width:60%;
+}
+
+textarea
+{
+    resize:none;
+    min-height: 150px;
+    width:48%;
+}

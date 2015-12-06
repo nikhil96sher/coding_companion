@@ -23,8 +23,6 @@ SECRET_KEY = 'dcwy)@th7g2=+0((8v=t$m2xuc0g6#ma0l3c5li6z1svxkq3@q'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-TEMPLATE_DEBUG = True
-
 ALLOWED_HOSTS = []
 
 
@@ -37,6 +35,7 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'compile'
 )
 
 MIDDLEWARE_CLASSES = (

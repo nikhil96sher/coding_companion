@@ -3,5 +3,6 @@ from compile import views
 
 urlpatterns=patterns(
 '',
-#url(r'^leaderboard/',views.fetch_leaderboard),
+url(r'^editor/',views.editor),
+url(r'^compile/',views.compile),
 )
