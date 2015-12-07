@@ -13,6 +13,13 @@
     left:2%;
 }
 
+#status
+{
+    position: absolute;
+    top:45%;
+    left: 31%;
+}
+
 #input_output
 {
     position: absolute;
@@ -23,7 +30,6 @@
 
 textarea
 {
-    resize:none;
     min-height: 150px;
     width:48%;
 }

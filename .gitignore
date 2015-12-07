@@ -3,3 +3,4 @@ coding_companion/connections.py
 compile/migrations/
 *.cpp
 manage.py
+a.out

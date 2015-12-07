@@ -22,26 +22,23 @@
 
         function doCompile()
         {
+            $('#status').html("Compiling..")
             var editor = ace.edit("editor");
-            code = editor.getSession().getValue();
+            write_code = editor.getSession().getValue();
             //Make an ajax call with this parameter
             token = document.getElementsByName('csrfmiddlewaretoken')[0].value;  
-            $.ajax({
-                type : 'POST',
-                url : '/compile/compile/',
-                data : {'csrfmiddlewaretoken':token,'code':code},
-                success : function(result)
+            $.post
+            (
+                "/compile/compile/",
+                {
+                csrfmiddlewaretoken:token,
+                code:write_code
+                },
+                function(data,status)
                     {
-                    if(result=="")
-                        $('#status').html("Successful Compilation");   
-                    else
-                        $('#output').html(result);
-                    },
-                error : function(result)
-                    {
-                    $('#status').html("Error compiling the code")
+                        $('#response').html(data);
                     }
-                });
+            );
         }
 
     </script>
@@ -49,31 +46,21 @@
 
 <body onload="loadeditor('c_cpp')">
 {% csrf_token %}
-    <div id="editor"></div>
+<div id="editor"></div>
 
-    <div id="operations">
-        <select id="language">
-            <option value="c_cpp">C</option>
-            <option value="c_cpp">C++</option>
-            <option value="python">Python</option>
-        </select>
-        <button id="compile" onclick="doCompile()">Compile</button>
-        <button id="run" onclick="run()">Run</button>
-        <label id="status">
-            {% if result %}
-                {% if result == "" %}
-                    Compilation Successful
-                {% else %}
-                    Compilation Error
-                {% endif %}
-            {% endif %}
-        </label>
-    </div>
+<div id="operations">
+    <select id="language">
+        <option value="c_cpp">C</option>
+        <option value="c_cpp">C++</option>
+        <option value="python">Python</option>
+    </select>
+    <button id="compile" onclick="doCompile()">Compile</button>
+    <button id="run" onclick="run()">Run</button>
+</div>
 
-    <div id="input_output">
-        <textarea id="input" placeholder="Input"></textarea>
-        <textarea id="output" placeholder="Output">{{ result }}</textarea>
-    </div>
+<div id="response">
+{% include 'compile/status.html' %}
+</div>
 
 </body>
 </html>
