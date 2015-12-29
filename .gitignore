@@ -4,3 +4,4 @@ compile/migrations/
 *.cpp
 manage.py
 a.out
+codes/code.py

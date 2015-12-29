@@ -1,0 +1,9 @@
+<label class="label label-default" id="status">
+Status : {% if result %}{{ result }}{% endif %}
+</label>
+<br>
+</br>
+<div id="input_output">
+    <textarea id="input" placeholder="Input">{% if input %}{{ input }}{% endif %}</textarea>
+    <textarea id="output" placeholder="Output">{% if output %}{{ output }}{% endif %}</textarea>
+</div>

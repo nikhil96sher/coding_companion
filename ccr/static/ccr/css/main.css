@@ -1,0 +1,49 @@
+/* Temp styles */
+.content, .sidebar, .footer { border-top: none; }
+.sidebar.right { border-right: none; }
+.sidebar.left { border-left: none; }
+/* Core styles */
+.header
+{
+	background-color:rgb(34,34,34);
+	color: rgb(150,170,170);
+	position: relative; /* needed for stacking */
+	font-family: monospace;
+	font-variant: small-caps;
+	font-size: 40;
+	height: 10%;
+    width: 100%;
+}
+.content
+{
+    position: relative; /* needed for stacking */
+    width: 100%;
+    height: 85%;
+}
+
+#content-inner
+{
+	float: left;
+	width: 58%;
+	height: 100%;
+}
+.sidebar-left
+{
+	float: left; 
+	height: 100%;
+	width: 	0%;
+}
+.sidebar-right
+{ 
+	float: right;
+	height: 100%;
+	width: 30%;
+}
+.footer
+{
+ 	background-color: rgb(34,34,34);
+ 	color: rgb(150,170,170);
+	position: relative; /* needed for stacking */
+    width: 100%;
+    height: 5%;
+}

@@ -1,8 +1,9 @@
 from django.conf.urls import patterns,url
-from compile import views
+from ccr import views
 
 urlpatterns=patterns(
 '',
-url(r'^editor/',views.editor),
+url(r'^$',views.common),
 url(r'^compile/',views.compile),
+url(r'^run/',views.run),
 )
