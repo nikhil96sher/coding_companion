@@ -11,7 +11,7 @@ A desktop app that combines all your coding resources and requisites at one plac
 1. Compiler for C++ working.
 
 ###Screenshots
-![Alt text](https://github.com/nikhil96sher/coding_companion/tree/master/screenshots/compile_error.png "Compilation Error")
+![Alt text](https://github.com/nikhil96sher/coding_companion/blob/master/screenshots/compile_error.png "Compilation Error")
 
 ###Currently Working On
 1. Provide input and generate output
