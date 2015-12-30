@@ -28,3 +28,7 @@ A desktop app that combines all your coding resources and requisites at one plac
 2. Ace Editor (https://github.com/ajaxorg/ace)
 3. Bootstrap CSS (http://getbootstrap.com/css/)
 4. jQuery (https://jquery.com/)
+
+
+[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/nikhil96sher/coding_companion/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
+
