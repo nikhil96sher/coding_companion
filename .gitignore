@@ -5,3 +5,4 @@ compile/migrations/
 manage.py
 a.out
 codes/code.py
+db.sqlite3
