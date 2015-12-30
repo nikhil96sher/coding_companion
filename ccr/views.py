@@ -7,8 +7,31 @@ from django.contrib.auth.models import User
 from django.contrib.auth import authenticate,login,logout
 import subprocess
 import re
-
+import requests
 # Create your views here.
+
+def savecode(request):
+	if request.method=="POST":
+		filename = request.POST['file']
+		code = request.POST['code']
+		inp = request.POST['input']
+		url = './codes/saved/'+filename+'.cpp'
+		f = open(url,'w')
+		f.seek(0)
+		f.truncate()
+		f.write(code)
+		f.close()
+		url = './codes/saved/'+filename+'.txt'
+		f = open(url,'w')
+		f.seek(0)
+		f.truncate()
+		f.write(inp)
+		f.close()
+		result = "Status : File Saved"
+		return HttpResponse(result)
+	else:
+		return HttpResponseRedirect('/ccr/')
+
 
 def common(request):
 	return render(request,'ccr/main.html',)
@@ -39,7 +62,7 @@ def compile(request):
 			result = "Compilation Error"
 		return render_to_response('ccr/status.html',{'result':result,'input':inp,'output':output},context_instance=RequestContext(request))
 	else:
-		return HttpResponseRedirect('/ccr/editor')
+		return HttpResponseRedirect('/ccr/')
 
 def run(request):
 	if request.method=="POST":

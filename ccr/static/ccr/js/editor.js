@@ -1,5 +1,6 @@
 function loadeditor(language)
 	{
+		$("#file_save").hide();
 		if(language=="python")
 			$('#editor').html("#Write your code here\n");
 		else
