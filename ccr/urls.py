@@ -3,8 +3,9 @@ from ccr import views
 
 urlpatterns=patterns(
 '',
-url(r'^$',views.common),
-url(r'^save/',views.savecode),
+url(r'^$',views.main),
+url(r'^save/',views.save),
+url(r'^share/',views.share),
 url(r'^compile/',views.compile),
 url(r'^run/',views.run),
 )

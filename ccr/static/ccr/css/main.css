@@ -24,7 +24,7 @@
 #content-inner
 {
 	float: left;
-	width: 58%;
+	width: 63%;
 	height: 100%;
 }
 .sidebar-left
@@ -37,7 +37,7 @@
 { 
 	float: right;
 	height: 100%;
-	width: 30%;
+	width: 35%;
 }
 .footer
 {

@@ -21,7 +21,7 @@
 
 <div class="header container-fluid text-center">
 	<div class="header-inner" >
-		Code,Compile & Run
+	{} Code,Compile & Run {}
 	</div>       
 </div>
 
@@ -43,9 +43,10 @@
 			<button id="run" class="btn btn-default btn-xs" onclick="doRun()">Run</button>
 			<button id="save" class="btn btn-default btn-xs" onclick="getfilename()">Save</button>
 			<form id="file_save" onsubmit="event.preventDefault();return savefile();" style="display:inline-block;">
-				<input type="text" id="file_name" style="border-radius:5px;"placeholder="Enter a file name..">
+				<input type="text" id="file_name" style="border-radius:5px;"placeholder="File Name">.cpp
 				<button type="submit" class="btn btn-default btn-xs">Save</button>
-				</form>
+			</form>
+
 		</div>
 		<br>
 		<div id="response">
@@ -55,6 +56,12 @@
 	</div>
 
 	<div class="sidebar-right">
+	<img src="/static/ccr/images/logo.jpg" style="width:90%;height:50%;margin-top:10%;">
+	</br>
+	</br>
+	<button id="share" class="btn btn-default btn-xs" onclick="sharecode()">Share your code through ideone.com</button>
+	<label id="sharing" class="label label-default">
+	</label>
 	</div>
 </div>
 <div class="footer container-fluid text-center">

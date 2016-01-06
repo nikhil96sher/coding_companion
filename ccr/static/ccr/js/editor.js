@@ -1,6 +1,7 @@
 function loadeditor(language)
 	{
 		$("#file_save").hide();
+		$("#sharing").hide();
 		if(language=="python")
 			$('#editor').html("#Write your code here\n");
 		else
@@ -13,7 +14,7 @@ function loadeditor(language)
 
 function doCompile()
 	{
-		$('#status').html("Compiling..");
+		$('#status').html("Status : Compiling..");
 		var editor = ace.edit("editor");
 		
 		//Make an ajax call with these parameters
@@ -38,7 +39,7 @@ function doCompile()
 
 function doRun()
 	{
-		$('#status').html("Executing..");
+		$('#status').html("Status : Executing..");
 		var editor = ace.edit("editor");
 		write_code = editor.getSession().getValue();
 		token = document.getElementsByName('csrfmiddlewaretoken')[0].value;
@@ -54,7 +55,6 @@ function doRun()
 			function(data,status)
 			{
 				$('#response').html(data);
-				//$('#status').html("Execution Completed..");
 			}
 		);
 

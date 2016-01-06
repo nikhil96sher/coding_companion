@@ -16,7 +16,11 @@ function savefile()
 		test_case = document.getElementById('input').value; //Input
 		file_name = document.getElementById('file_name').value;
 		token = document.getElementsByName('csrfmiddlewaretoken')[0].value;	//Token
-		
+		if(file_name=="")
+		{
+			alert("Please enter a file name.");
+			return false;
+		}
 		$.post
 		(
 			"/ccr/save/",
@@ -34,3 +38,28 @@ function savefile()
 		$('#file_save').hide();
 		return false;
 	}
+
+function sharecode()
+{
+	$("#sharing").show();
+	$("#sharing").html("Sharing..");
+	//Make ajax request
+	var editor = ace.edit("editor");
+	write_code = editor.getSession().getValue(); //Code
+	test_case = document.getElementById('input').value; //Input
+	token = document.getElementsByName('csrfmiddlewaretoken')[0].value;	//Token
+		
+	$.post
+		(
+			"/ccr/share/",
+			{
+			csrfmiddlewaretoken:token,
+			code:write_code,
+			input:test_case,
+			},
+			function(data,status)
+				{
+					$('#sharing').html("Link : "+data);
+				}
+		);
+}
