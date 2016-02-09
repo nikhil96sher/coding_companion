@@ -9,10 +9,11 @@ A desktop app that combines all your coding resources and requisites at one plac
 3. Run server using `python manage.py runserver`
 4. Go to the Url `127.0.0.1:8000/ccr/` and enjoy
 
-**Note** : If the run server command results in an error - "The port is already in use", try running the server on another port using `python manage.py runserver 127.0.0.1:<Port-Number>` . For example : `python manage.py runserver 127.0.0.1:5000`
+**Note** : If the run server command results in an error - "The port is already in use", try running the server on another port using `python manage.py runserver <Port-Number>` . For example : `python manage.py runserver 5000`
 
 ###Features Completed
 1. Compiler for C++ working.
+2. Save code on your PC.
 
 ###Screenshots
 ![Alt text](https://github.com/nikhil96sher/coding_companion/blob/master/screenshots/compile_error.png "Screenshot")
@@ -20,8 +21,6 @@ A desktop app that combines all your coding resources and requisites at one plac
 ###Currently Working On
 1. Provide input and generate output
 2. Reminder for upcoming coding contests
-3. Share Code through ideone.com
-4. Load and Save code on your PC ...
 
 ###Resources
 1. Django (https://www.djangoproject.com/)
@@ -29,10 +28,4 @@ A desktop app that combines all your coding resources and requisites at one plac
 3. Bootstrap CSS (http://getbootstrap.com/css/)
 4. jQuery (https://jquery.com/)
 
-
 [![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/nikhil96sher/coding_companion/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
-
-
-
-[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/nikhil96sher/coding_companion/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
-
