@@ -32,3 +32,7 @@ A desktop app that combines all your coding resources and requisites at one plac
 
 [![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/nikhil96sher/coding_companion/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
 
+
+
+[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/nikhil96sher/coding_companion/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
+
