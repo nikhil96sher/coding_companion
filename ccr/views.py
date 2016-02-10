@@ -16,7 +16,7 @@ import hashlib
 def main(request):
 	time = datetime.datetime.now()
 	token = hashlib.sha224(str(time)).hexdigest()
-	token = token[0:8]	#Token length is 8
+	token = token[0:4]	#Token length is 4
 	return render(request,'ccr/main.html',{'token':token})
 
 def template(request):
@@ -32,7 +32,6 @@ def save(request):
 		filename = request.POST['file']
 		code = request.POST['code']
 		inp = request.POST['input']
-		
 		try:
 			url = './codes/saved/'+filename+'.cpp'
 			f = open(url,'w')
@@ -53,7 +52,6 @@ def save(request):
 			result = "Status : File Saved"
 		except:
 			result = "Status : Sorry, can't save files at the moment"
-		
 		return HttpResponse(result)
 	else:
 		return HttpResponseRedirect('/ccr/')

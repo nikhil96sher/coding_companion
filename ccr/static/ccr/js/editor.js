@@ -2,7 +2,15 @@ function getfilename()
 	{
 		file_name = document.getElementById('file_name').value;
 		if(file_name!="")
+		{
 			savefile();
+			if(file_name=="template")
+				{
+					$('#status').html("Status : Ready");
+					document.getElementById('file_name').value = "";
+					$('#file_save').show();
+				}
+		}
 		else
 			$('#file_save').show();
 	}
@@ -36,6 +44,8 @@ function savefile()
 				}
 		);
 		$('#file_save').hide();
+		name = "File : saved/" + file_name + ".cpp";
+		$('#file_name_label').html(name)
 		return false;
 	}
 
