@@ -5,7 +5,7 @@ urlpatterns=patterns(
 '',
 url(r'^$',views.main),
 url(r'^save/',views.save),
-url(r'^share/',views.share),
+url(r'^template/',views.template),
 url(r'^compile/',views.compile),
 url(r'^run/',views.run),
 )

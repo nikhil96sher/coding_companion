@@ -5,42 +5,55 @@ from django.http import HttpResponseRedirect,Http404,HttpResponse
 from django.contrib import messages
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate,login,logout
+
 import subprocess
 import re
-import requests
-import sys,errno
+import os
+import datetime
+import hashlib
 # Create your views here.
 
 def main(request):
-	return render(request,'ccr/main.html',)
+	time = datetime.datetime.now()
+	token = hashlib.sha224(str(time)).hexdigest()
+	token = token[0:8]	#Token length is 8
+	return render(request,'ccr/main.html',{'token':token})
 
-def share(request):#Has to be worked on
-	if request.method=="POST":
-		url="http://ideone.com/ideone/Index/submit/"
-		
-		link = "http://ideone.com/"
-		return HttpResponse(link)
-	else:
-		return HttpResponseRedirect('/ccr/')
+def template(request):
+	try:
+		f = open('./codes/saved/template.cpp','r')
+		template = f.read()
+	except:
+		template = ""
+	return HttpResponse(template)
 
 def save(request):
 	if request.method=="POST":
 		filename = request.POST['file']
 		code = request.POST['code']
 		inp = request.POST['input']
-		url = './codes/saved/'+filename+'.cpp'
-		f = open(url,'w')
-		f.seek(0)
-		f.truncate()
-		f.write(code)
-		f.close()
-		url = './codes/saved/'+filename+'.txt'
-		f = open(url,'w')
-		f.seek(0)
-		f.truncate()
-		f.write(inp)
-		f.close()
-		result = "Status : File Saved"
+		
+		try:
+			url = './codes/saved/'+filename+'.cpp'
+			f = open(url,'w')
+			f.seek(0)
+			f.truncate()
+			f.write(code)
+			f.close()
+		except:
+			result = "Status : Sorry, can't save files at the moment"
+			return HttpResponse(result)
+		try:
+			url = './codes/saved/'+filename+'.txt'
+			f = open(url,'w')
+			f.seek(0)
+			f.truncate()
+			f.write(inp)
+			f.close()
+			result = "Status : File Saved"
+		except:
+			result = "Status : Sorry, can't save files at the moment"
+		
 		return HttpResponse(result)
 	else:
 		return HttpResponseRedirect('/ccr/')
@@ -49,21 +62,30 @@ def compile(request):
 	if request.method=="POST":
 		code = request.POST['code']
 		inp = request.POST['input']
+		token = request.POST['uniquetoken']
+		#inp = inp + '\n'
 		
 		#Writing Code into the file
-		f=open('./codes/code.cpp','w')
+		f=open('./codes/tmp/'+token+'.cpp','w')
 		f.seek(0)
 		f.truncate()
 		f.write(code)
 		f.close()
 
+		#Writing Input into the file
+		test = open('./codes/tmp/'+token+'.txt','w')
+		test.seek(0)
+		test.truncate()
+		test.write(inp)
+		test.close()
+
 		try:
-			output = subprocess.check_output(["g++","./codes/code.cpp"],stderr = subprocess.STDOUT)
-			subprocess.call(["g++","./codes/code.cpp"])
+			output = subprocess.check_output(["g++","./codes/tmp/"+token+".cpp"],stderr = subprocess.STDOUT)
+			subprocess.call(["g++","./codes/tmp/"+token+".cpp"])
 			result = "Compilation Successful"
 		except subprocess.CalledProcessError,e:
 			output = e.output
-			output = output.replace("./codes/code.cpp:","");
+			output = output.decode('utf-8').replace("./codes/tmp/"+token+".cpp:","");
 			has = re.match(r'\/usr.*',output)
 			if(has):
 				output = re.sub(r'\/usr.*','',output)
@@ -75,67 +97,53 @@ def compile(request):
 
 def run(request):
 	if request.method=="POST":
-		#code=request.POST['code']
-		testcase=request.POST['input']
+		code = request.POST['code']
+		inp = request.POST['input']
+		token = request.POST['uniquetoken']
 		
-		if testcase=="":
-			testcase = " "
-
-		#f=open('./codes/code.cpp','w')
-		#f.seek(0)
-		#f.truncate()
-		#f.write(code)
-		#f.close()
+		#Writing Code into the file
+		f=open('./codes/tmp/'+token+'.cpp','w')
+		f.seek(0)
+		f.truncate()
+		f.write(code)
+		f.close()
 		
-		#try:	#Compilation Successful
-		#	output = subprocess.check_output(["g++","./codes/code.cpp"],stderr = subprocess.PIPE)
-		#	subprocess.call(["g++","./codes/code.cpp"])#,stderr = subprocess.PIPE)
-		#	result = "Compilation Successful"
-			
-		try:
-			inp = open('./input.txt','w')
-			inp.seek(0)
-			inp.truncate()
-			inp.write(testcase)
-			inp.close()
-		except EOFError,e:
-			result = "File Reading Error"
-			html = render_to_string('ccr/status.html',{'result':result,'input':testcase,'output':output})
-			return HttpResponse(html)
+		#Writing testcase into file
+		f = open('./codes/tmp/'+token+'.txt','w')
+		f.seek(0)
+		f.truncate()
+		f.write(inp)
+		f.close()
+	
+		try:	#Compilation
+			output = subprocess.check_output(["g++","./codes/tmp/"+token+".cpp"],stderr = subprocess.STDOUT)
+			subprocess.call(["g++","./codes/tmp/"+token+".cpp"])
+			result = "Compilation Successful"
+		except subprocess.CalledProcessError,e:
+			output = e.output
+			output = output.replace("./codes/tmp/"+token+".cpp:","");
+			has = re.match(r'\/usr.*',output)
+			if(has):
+				output = re.sub(r'\/usr.*','',output)
+				output = re.sub(r'\s+',' ',output)
+			result = "Compilation Error"
+			return render_to_response('ccr/status.html',{'result':result,'input':inp,'output':output},context_instance=RequestContext(request))	
 
-
-
-		try:	#running successful
-			output = subprocess.check_output(["./a.out","<","input.txt"],stderr = subprocess.PIPE)
-				#subprocess.call(["./a.out","<","input.txt"])
+		#Compilation Successful
+		#ipdb.set_trace()
+		try:	#running
+			command = "./a.out < ./codes/tmp/"+token + ".txt > ./codes/tmp/out"+token+".txt"
+			os.system(command)
+			f = open('./codes/tmp/out'+token+'.txt')
+			output = f.read()
+			f.close()
 			result = "Execution Successful"
 		except subprocess.CalledProcessError,er:	#error while running
 			output = er.output
 			result = "Execution Failed"
-		except socket.error,e:
-			result = "Socket Error"
-		except IOError,e:
-			if e.errno == errno.EPIPE:
-				result = "EPIPE Error"
-			else:
-				result = "Other IOerror"
-
-		#except subprocess.CalledProcessError,e:	#compilation failed
-		#	output = e.output
-		#	output = output.replace("./codes/code.cpp:","");
-		#	has = re.match(r'\/usr.*',output)
-		#	if(has):
-		#		output = re.sub(r'\/usr.*','',output)
-		#		output = re.sub(r'\s+',' ',output)
-		#	result = "Compilation Error"
-		#except socket.error,e:
-		#	result = "Socket Error"
-		#except IOError,e:
-		#	if e.errno == errno.EPIPE:
-		#		result = "EPIPE Error"
-		#	else:
-		#		result = "OTHer errror"
-		html = render_to_string('ccr/status.html',{'result':result,'input':testcase,'output':output})
+		
+		#ipdb.set_trace()
+		html = render_to_string('ccr/status.html',{'result':result,'input':inp,'output':output})
 		return HttpResponse(html)
 	else:
 		return HttpResponseRedirect('/ccr/editor')

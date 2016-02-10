@@ -1,5 +1,5 @@
 # coding_companion
-A desktop app that combines all your coding resources and requisites at one place.
+An offline IDE for C++, although similar to ideone.com, but ensures that your code doesn't fall into wrong hands :p
 
 ###Installing
 1. Clone the repository on your PC `git clone https://github.com/nikhil96sher/coding_companion/`
@@ -12,15 +12,12 @@ A desktop app that combines all your coding resources and requisites at one plac
 **Note** : If the run server command results in an error - "The port is already in use", try running the server on another port using `python manage.py runserver <Port-Number>` . For example : `python manage.py runserver 5000`
 
 ###Features Completed
-1. Compiler for C++ working.
-2. Save code on your PC.
+1. Compile and Run C++ code.
+2. Create a template, so you need not type your #defines again and again.
+3. Save code on your PC. (Although a temporary copy is always saved as a backup)
 
 ###Screenshots
 ![Alt text](https://github.com/nikhil96sher/coding_companion/blob/master/screenshots/compile_error.png "Screenshot")
-
-###Currently Working On
-1. Provide input and generate output
-2. Reminder for upcoming coding contests
 
 ###Resources
 1. Django (https://www.djangoproject.com/)

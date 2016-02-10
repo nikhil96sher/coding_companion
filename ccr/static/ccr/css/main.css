@@ -21,6 +21,13 @@
     height: 85%;
 }
 
+.links
+{
+	margin-top: 2px;
+	width: 25px;
+	height: 25px;
+}
+
 #content-inner
 {
 	float: left;

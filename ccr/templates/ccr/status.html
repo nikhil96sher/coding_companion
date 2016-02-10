@@ -4,6 +4,6 @@ Status : {% if result %}{{ result }}{% else %} Ready{% endif %}
 <br>
 </br>
 <div id="input_output">
-    <textarea id="input" placeholder="Input">{% if input %}{{ input }}{% endif %}</textarea>
-    <textarea id="output" placeholder="Output">{% if output %}{{ output }}{% endif %}</textarea>
+    <textarea id="input" placeholder="Input" rows="6" style="margin-right:1%">{% if input %}{{ input }}{% endif %}</textarea>
+    <textarea id="output" placeholder="Output" rows="6" style="margin-left:1%;">{% if output %}{{ output }}{% endif %}</textarea>
 </div>
