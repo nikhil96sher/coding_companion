@@ -6,6 +6,8 @@ An offline IDE for C++, although similar to ideone.com, but ensures that your co
 2. Go to coding_companion `cd coding_companion`
 3. Run `./install.sh`
 
+**Note** : `install.sh` installs python, g++ and Django 1.8.1 . If these are already installed, you can skip the installation.
+
 **Note** : If the `install.sh` command results in permission denied error, then first run `chmod 777 install.sh` and then try running `install.sh` again.
 
 ###Using
@@ -33,5 +35,3 @@ An offline IDE for C++, although similar to ideone.com, but ensures that your co
 2. Ace Editor (https://github.com/ajaxorg/ace)
 3. Bootstrap CSS (http://getbootstrap.com/css/)
 4. jQuery (https://jquery.com/)
-
-[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/nikhil96sher/coding_companion/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
